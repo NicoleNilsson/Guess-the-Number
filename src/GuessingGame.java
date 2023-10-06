@@ -8,7 +8,6 @@ public class GuessingGame {
     private int turn = 1;
     private int userGuess;
     private String addToLowScore;
-    //private String playAgain;
     private int choiceInMenu;
     private Scanner gameScanner = new Scanner(System.in);
 
