@@ -9,6 +9,7 @@ public class GuessingGame {
     private int userGuess;
     private String addToLowScore;
     private int choiceInMenu;
+    //slå ihop userGuess och choiceInMenu?
     private Scanner gameScanner = new Scanner(System.in);
 
     ScoreEntry entry = new ScoreEntry();
@@ -36,7 +37,9 @@ public class GuessingGame {
         return randomNumber;
     }
     
-    //metod som kontrollerar om user input (gissningen) är en int
+    //metod som kontrollerar om userGuess är en int
+    //ändra så jag kan testa choiceInMenu också?
+    //slå ihop userGuess och choiceInMenu?
     private int tryTheNumber(){
         while (true){
             try {
