@@ -111,30 +111,13 @@ public class GuessingGame {
                 turn = 1;
                 startGame();
             } else if (choiceInMenu == 2){
+                System.out.println("Lowscores: ");
                 for (int sc : entry.getLowScore()) {
-                    System.out.println("Lowscores: ");
                     System.out.println(sc);
-                menu();
-                }
+                } menu();
             } else if (choiceInMenu == 3){
                 System.out.println("Tack för den här gången!");
             }
 
     }
-
-    // //metod där du får välja att spela igen
-    // private void chooseIfPlayAgain(){
-    //     do {
-    //         System.out.print("Vill du spela igen (Ja/Nej)? ");
-    //         playAgain = gameScanner.nextLine();
-            
-    //     } while ((!playAgain.equalsIgnoreCase("ja")) && (!playAgain.equalsIgnoreCase("nej")));
-        
-    //     if (playAgain.equalsIgnoreCase("ja")){
-    //         turn= 1;
-    //         startGame();
-    //     } else if (playAgain.equalsIgnoreCase("nej")){
-    //         System.out.println("Tack för den här gången!");
-    //     }
-    // }
 }
