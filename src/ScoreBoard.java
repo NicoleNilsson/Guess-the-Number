@@ -4,16 +4,16 @@ import java.util.Collections;
 
 public class ScoreBoard {
 
-    private ArrayList<Integer> lowScore = new ArrayList<>(Arrays.asList());
+    private ArrayList<Integer> scoreList = new ArrayList<>(Arrays.asList());
     private int listLength;
     private int listIndex = listLength - 1;
 
-    public void setLowScore (ArrayList<Integer> lowscore){
-        this.lowScore = lowscore;
+    public void setScoreList (ArrayList<Integer> scoreList){
+        this.scoreList = scoreList;
     }
 
-    public ArrayList<Integer> getLowScore(){
-        return lowScore;
+    public ArrayList<Integer> getScoreList(){
+        return scoreList;
     }
 
     public void setListLength (int listLength){
@@ -32,20 +32,21 @@ public class ScoreBoard {
         return listIndex;
     }
 
+    //constructor
     public ScoreBoard(int listLength){
         this.listLength = listLength;
     }
 
-    public ArrayList<Integer> lowScore(int score){
-        if (lowScore.size() == listLength){;
-            lowScore.set(listIndex, score);
+    public ArrayList<Integer> scoreList(int score){
+        if (scoreList.size() == listLength){;
+            scoreList.set(listIndex, score);
         } else {
-            lowScore.add(score);
+            scoreList.add(score);
         }
 
         //sorterar listan i storleksordning
-        Collections.sort(lowScore);
-        return lowScore;
+        Collections.sort(scoreList);
+        return scoreList;
     }
 
 }

@@ -13,7 +13,7 @@ public class GuessingGame {
     private Scanner gameScanner = new Scanner(System.in);
 
     //skapar objekt av ScoreBoard och ger lowscorelistan längden 5
-    ScoreBoard guessingGameScoreBoard = new ScoreBoard(5);
+    ScoreBoard lowScore = new ScoreBoard(5);
 
     public GuessingGame(){
     }
@@ -79,7 +79,7 @@ public class GuessingGame {
     //+felhantering om ej anger ja eller nej
     private void addToLowScore(){
 
-        if (guessingGameScoreBoard.getLowScore().size() < guessingGameScoreBoard.getListLength() || turn < guessingGameScoreBoard.getLowScore().get(guessingGameScoreBoard.getListIndex())){
+        if (lowScore.getScoreList().size() < lowScore.getListLength() || turn < lowScore.getScoreList().get(lowScore.getListIndex())){
 
             System.out.println("Vill du lägga till ditt resultat på lowscore-listan (Ja/Nej)? ");
             addToLowScore = gameScanner.nextLine();
@@ -90,7 +90,7 @@ public class GuessingGame {
             }
     
             if (addToLowScore.equalsIgnoreCase("ja")){
-                guessingGameScoreBoard.lowScore(turn);
+                lowScore.scoreList(turn);
                 menu();
 
             } else if (addToLowScore.equalsIgnoreCase("nej")){
@@ -128,7 +128,7 @@ public class GuessingGame {
                     System.out.println("+---------------------+");
                     System.out.println("|" + centerString("Low Scores:", 10) + "|");
                     System.out.println("+---------------------+");
-                    for (int score : guessingGameScoreBoard.getLowScore()) {
+                    for (int score : lowScore.getScoreList()) {
                         System.out.println("|" + centerString(Integer.toString(score), 10) + "|");
                         System.out.println("+---------------------+");
                     }
