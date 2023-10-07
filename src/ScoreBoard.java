@@ -60,6 +60,8 @@ public class ScoreBoard {
     }
 
     public ArrayList<String> scoreListAsString (){
+        
+        scoreListAsString.add("Low Scores:");
 
         for (Integer score : scoreList){
             scoreListAsString.add(score.toString());

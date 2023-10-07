@@ -5,6 +5,7 @@ public class CoolMenu {
     private char horisontalChar;
     private char cornerChar;
     private char verticalChar;
+    private int longestEntry;
     private ArrayList<String> stringEntries = new ArrayList<>();
     
     public CoolMenu(ArrayList<String> stringEntries){
@@ -24,17 +25,22 @@ public class CoolMenu {
     }
     
     
-    public int calucalteMenuWidth(ArrayList<String> stringEntries){
-        int menuEntry = 0;
+    public int findLongestEntry(ArrayList<String> stringEntries){
 
         for (String entry : stringEntries) {
 
-            if (menuEntry < entry.length()){
-                menuEntry = entry.length();
+            if (longestEntry < entry.length()){
+                longestEntry = entry.length();
             }
         }
         
-        return menuEntry;
+        return longestEntry;
+    }
+
+    public int createPadding (){
+        int padding = (longestEntry + 2) / 2;
+
+        return padding;
     }
 
     public String centerString (String nonCenteredString, int padding){

@@ -106,31 +106,21 @@ public class GuessingGame {
 
     //metod för meny
     private void menu(){
-    
-        //String [] menuEntries = {"Vad vill du göra?", "1. Spela igen", "2. Se Low Score-lista", "3. Avsluta spelet"};
 
         ArrayList<String> menuEntries = new ArrayList<>(Arrays.asList("Vad vill du göra?", "1. Spela igen", "2. Se Low Score-lista", "3. Avsluta spelet"));
 
         while (true) {
 
-            //skapa objekt och ange tecken för hörn, sidor och skiljelinje i menyn
             CoolMenu gameMenu = new CoolMenu (menuEntries, '-', '|', '+');
             CoolMenu lowScoreBoard = new CoolMenu (lowScore.getScoreListAsString(), '-', '|', '+');
-            
-            
-
-            int gameMenuWidth = gameMenu.calucalteMenuWidth(menuEntries) + 2;
-            int lowScoreBoardWidth = gameMenu.calucalteMenuWidth(lowScore.getScoreListAsString()) + 2;
-            int padding = gameMenuWidth / 2;
-            int padding2 = lowScoreBoardWidth / 2;
             
             lowScore.scoreListAsString();
 
             for (int i = 0; i < menuEntries.size(); i++){
-                System.out.println(gameMenu.createDevitionLine(gameMenuWidth));
-                System.out.println(gameMenu.centerString(menuEntries.get(i), padding));
+                System.out.println(gameMenu.createDevitionLine(gameMenu.findLongestEntry(menuEntries) + 2));
+                System.out.println(gameMenu.centerString(menuEntries.get(i), gameMenu.createPadding()));
             }
-            System.out.println(gameMenu.createDevitionLine(gameMenuWidth));
+            System.out.println(gameMenu.createDevitionLine(gameMenu.findLongestEntry(menuEntries) + 2));
 
             choiceInMenu = gameScanner.nextLine();
 
@@ -140,10 +130,13 @@ public class GuessingGame {
                     break;
                     //för att stänga pågående spel
                 } else if (choiceInMenu.equals("2")){                   
-                    System.out.println("|" + lowScoreBoard.centerString("Low Scores:", 10) + "|");
+
                     for (int i = 0; i < lowScore.getScoreListAsString().size(); i++) {
-                        System.out.println(lowScoreBoard.centerString(lowScore.getScoreListAsString().get(i), padding2));
+                        System.out.println(lowScoreBoard.createDevitionLine(lowScoreBoard.findLongestEntry(lowScore.getScoreListAsString()) + 2));
+                        System.out.println(lowScoreBoard.centerString(lowScore.getScoreListAsString().get(i), lowScoreBoard.createPadding()));
                     }
+                    System.out.println(lowScoreBoard.createDevitionLine(lowScoreBoard.findLongestEntry(lowScore.getScoreListAsString()) + 2));
+
                 } else if (choiceInMenu.equals("3")){
                     System.out.println("Tack för den här gången!");
                     break;
@@ -153,43 +146,5 @@ public class GuessingGame {
 
         }
     }
-
-    // private int calucalteMenuWidth(String [] menuEntries){
-    //     int menuEntry = 0;
-
-    //     for (String entry : menuEntries) {
-
-    //         if (menuEntry < entry.length()){
-    //             menuEntry = entry.length();
-    //         }
-    //     }
-        
-    //     return menuEntry;
-    // }
-
-    // private String centerString (String nonCenteredString, int padding){
-
-    //     if (nonCenteredString.length() % 2 == 0){
-    //         String centeredString = String.format("%" + (padding - (nonCenteredString.length()/2)) + "s%s%" + ((padding+1) - (nonCenteredString.length()/2)) + "s", "", nonCenteredString, "");
-    //     return centeredString;
-    //     }
-
-    //     String centeredString = String.format("%" + (padding - (nonCenteredString.length()/2)) + "s%s%" + (padding - (nonCenteredString.length()/2)) + "s", "", nonCenteredString, "");
-    //     return centeredString;
-    // }
-
-    // private String createDevitionLine (char devitionChar, int lineLength){
-    //     String devitionLine = "";
-
-    //     for (int i = 0; i < lineLength; i++){
-    //         devitionLine = devitionLine + devitionChar;
-    //     }
-
-    //     if (lineLength % 2 == 0){
-    //         devitionLine = devitionLine + devitionChar; 
-    //     }
-
-    //     return devitionLine;
-    // }
 }
 
