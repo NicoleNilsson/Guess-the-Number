@@ -42,9 +42,7 @@ public class GuessingGame {
         return randomNumber;
     }
     
-    //tar in userGuess
-    //kontrollerar om userGuess är en int
-    //skickar meddelande om det inte är en int och försöker igen
+    //tar in och testar userGuess
     private int tryTheNumber(){
         while (true){
             try {
@@ -76,9 +74,7 @@ public class GuessingGame {
         }
     }
 
-    //metod där antal gissningar kontrolleras 
-    //och du får välja att lägga till på lowscore-listan om du klassar in
-    //+felhantering om ej anger ja eller nej
+    //metod för att lägga till lowscore
     private void addToLowScore(){
 
         if (lowScore.getScoreList().size() < lowScore.getListLength() || turn < lowScore.getScoreList().get(lowScore.getListIndex())){
@@ -108,19 +104,21 @@ public class GuessingGame {
     private void menu(){
 
         ArrayList<String> menuEntries = new ArrayList<>(Arrays.asList("Vad vill du göra?", "1. Spela igen", "2. Se Low Score-lista", "3. Avsluta spelet"));
+        
+        CoolMenu gameMenu = new CoolMenu (menuEntries, '-', '|', '+');
+        CoolMenu lowScoreBoard = new CoolMenu (lowScore.getScoreListAsString(), '-', '|', '+');
 
         while (true) {
 
-            CoolMenu gameMenu = new CoolMenu (menuEntries, '-', '|', '+');
-            CoolMenu lowScoreBoard = new CoolMenu (lowScore.getScoreListAsString(), '-', '|', '+');
-            
             lowScore.scoreListAsString();
+            String menuDevitionLine = gameMenu.createDevitionLine(gameMenu.findLongestEntry(menuEntries) + 2);
+            String lowScoreDevisionLine = lowScoreBoard.createDevitionLine(lowScoreBoard.findLongestEntry(lowScore.getScoreListAsString()) + 2);
 
             for (int i = 0; i < menuEntries.size(); i++){
-                System.out.println(gameMenu.createDevitionLine(gameMenu.findLongestEntry(menuEntries) + 2));
+                System.out.println(menuDevitionLine);
                 System.out.println(gameMenu.centerString(menuEntries.get(i), gameMenu.createPadding()));
             }
-            System.out.println(gameMenu.createDevitionLine(gameMenu.findLongestEntry(menuEntries) + 2));
+            System.out.println(menuDevitionLine);
 
             choiceInMenu = gameScanner.nextLine();
 
@@ -128,22 +126,22 @@ public class GuessingGame {
                     turn = 1;
                     startGame();
                     break;
-                    //för att stänga pågående spel
-                } else if (choiceInMenu.equals("2")){                   
+                    
+                } else if (choiceInMenu.equals("2")){                    
 
                     for (int i = 0; i < lowScore.getScoreListAsString().size(); i++) {
-                        System.out.println(lowScoreBoard.createDevitionLine(lowScoreBoard.findLongestEntry(lowScore.getScoreListAsString()) + 2));
+                        System.out.println(lowScoreDevisionLine);
                         System.out.println(lowScoreBoard.centerString(lowScore.getScoreListAsString().get(i), lowScoreBoard.createPadding()));
                     }
-                    System.out.println(lowScoreBoard.createDevitionLine(lowScoreBoard.findLongestEntry(lowScore.getScoreListAsString()) + 2));
+                    System.out.println(lowScoreDevisionLine);
 
                 } else if (choiceInMenu.equals("3")){
                     System.out.println("Tack för den här gången!");
                     break;
+
                 } else {
                     menuEntries.set(0, "Vänligen ange ett av följande alternativ!");
                 }
-
         }
     }
 }

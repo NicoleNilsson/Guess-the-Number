@@ -6,7 +6,7 @@ public class ScoreBoard {
     private ArrayList<Integer> scoreList = new ArrayList<>();
     private ArrayList<String> scoreListAsString = new ArrayList<>();
     private int listLength;
-    private int listIndex = listLength - 1;
+    private int listIndex;
 
     public void setScoreList (ArrayList<Integer> scoreList){
         this.scoreList = scoreList;
@@ -48,6 +48,7 @@ public class ScoreBoard {
 
     public ArrayList<Integer> scoreList(int score){
         if (scoreList.size() == listLength){;
+            listIndex = listLength -1;
             scoreList.set(listIndex, score);
         } else {
             scoreList.add(score);
@@ -61,6 +62,8 @@ public class ScoreBoard {
 
     public ArrayList<String> scoreListAsString (){
         
+        scoreListAsString.clear();
+
         scoreListAsString.add("Low Scores:");
 
         for (Integer score : scoreList){
