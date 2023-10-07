@@ -12,13 +12,14 @@ public class GuessingGame {
     private String choiceInMenu;
     private Scanner gameScanner = new Scanner(System.in);
 
-    //borde den ligga nån annanstans?
+    //skapar objekt av ScoreBoard och ger lowscorelistan längden 5
+    ScoreBoard guessingGameScoreBoard = new ScoreBoard(5);
 
     public GuessingGame(){
     }
 
     public void startGame(){
-        createRandomNumber1To100();
+        createRandomNumber(100, 1);
         System.out.println(randomNumber);
         //bara så jag kan se det slumpade numret
         
@@ -31,17 +32,17 @@ public class GuessingGame {
         }
     }
 
-    //metod som skapar ett slumpmässigt tal mellan 1-100
-    private int createRandomNumber1To100(){
+    //metod som skapar ett slumpmässigt tal mellan 0-bound + add
+    private int createRandomNumber(int bound, int add){
         //kan man göra på ett annat sätt?/varför?
-        randomNumber = new Random().nextInt(100) +1;
+        randomNumber = new Random().nextInt(bound) + add;
         //+1 för annars blir det 0-99
         return randomNumber;
     }
     
     //tar in userGuess
-    //borde det göras nån annanstans och isf hur?
     //kontrollerar om userGuess är en int
+    //skickar meddelande om det inte är en int och försöker igen
     private int tryTheNumber(){
         while (true){
             try {
@@ -56,7 +57,7 @@ public class GuessingGame {
         } 
     }
 
-    //metod som kontrollerar gissningen
+    //metod som jämför userGuess mot randomNumber
     private void guessTheNumber(){
         if (userGuess < randomNumber){
             System.out.println("Talet är större.");
@@ -73,15 +74,12 @@ public class GuessingGame {
         }
     }
 
-    //skapar objekt av ScoreEntry
-    ScoreEntry entry = new ScoreEntry();
-
     //metod där antal gissningar kontrolleras 
     //och du får välja att lägga till på lowscore-listan om du klassar in
     //+felhantering om ej anger ja eller nej
     private void addToLowScore(){
 
-        if (entry.getLowScore().size() < 5 || turn < entry.getLowScore().get(4)){
+        if (guessingGameScoreBoard.getLowScore().size() < guessingGameScoreBoard.getListLength() || turn < guessingGameScoreBoard.getLowScore().get(guessingGameScoreBoard.getListIndex())){
 
             System.out.println("Vill du lägga till ditt resultat på lowscore-listan (Ja/Nej)? ");
             addToLowScore = gameScanner.nextLine();
@@ -92,7 +90,7 @@ public class GuessingGame {
             }
     
             if (addToLowScore.equalsIgnoreCase("ja")){
-                entry.lowScore(turn);
+                guessingGameScoreBoard.lowScore(turn);
                 menu();
 
             } else if (addToLowScore.equalsIgnoreCase("nej")){
@@ -106,12 +104,22 @@ public class GuessingGame {
 
     //metod för meny
     private void menu(){
-        System.out.println("Vad vill du göra?");
+        String menuTitle = "Vad vill du göra?";
         
-        do {
-            System.out.println("1. Spela igen");
-            System.out.println("2. Se Low Score-listan");
-            System.out.println("3. Avsluta spelet");
+        while (true) {
+            System.out.println("+" + createDevitionLine('-', 30) + "+");
+            
+            
+            
+            
+            System.out.println("|" + centerString(menuTitle, 15) + "|");
+            System.out.println("+-------------------------------+");
+            System.out.println("|" + centerString("1. Spela igen", 15) + "|");
+            System.out.println("+-------------------------------+");
+            System.out.println("|" + centerString("2. Se Low Score-lista", 15) + "|");
+            System.out.println("+-------------------------------+");
+            System.out.println("|" + centerString("3. Avsluta spelet", 15) + "|");
+            System.out.println("+-------------------------------+");
 
             choiceInMenu = gameScanner.nextLine();
 
@@ -120,19 +128,43 @@ public class GuessingGame {
                     startGame();
                     break;
                     //för att stänga pågående spel
-                } else if (choiceInMenu.equals("2")){
-                    System.out.println("Low Scores: ");
-                    for (int score : entry.getLowScore()) {
-                        System.out.println(score);
+                } else if (choiceInMenu.equals("2")){                   
+                    System.out.println("+---------------------+");
+                    System.out.println("|" + centerString("Low Scores:", 10) + "|");
+                    System.out.println("+---------------------+");
+                    for (int score : guessingGameScoreBoard.getLowScore()) {
+                        System.out.println("|" + centerString(Integer.toString(score), 10) + "|");
+                        System.out.println("+---------------------+");
                     }
                 } else if (choiceInMenu.equals("3")){
                     System.out.println("Tack för den här gången!");
                     break;
                 } else {
-                    System.out.println("Vänligen ange ett av följande alternativ: ");
+                    menuTitle = "Vänligen ange ett av följande alternativ";
                 }
 
-            } while (!choiceInMenu.equals("1") || !choiceInMenu.equals("3"));
-            //ingen equals 2 så den fortsätter do while-loopen och skriver ut menyn igen efter lowscore
+        }
+    }
+
+    private String centerString (String nonCenteredString, int padding){
+
+        if (nonCenteredString.length() % 2 == 0){
+            String centeredString = String.format("%" + (padding - (nonCenteredString.length()/2)) + "s%s%" + ((padding + 1) - (nonCenteredString.length()/2)) + "s", "", nonCenteredString, "");
+        return centeredString;
+        }
+
+        String centeredString = String.format("%" + (padding - (nonCenteredString.length()/2)) + "s%s%" + (padding - (nonCenteredString.length()/2)) + "s", "", nonCenteredString, "");
+        return centeredString;
+    }
+
+    private String createDevitionLine (char devitionChar, int lineLength){
+        String devitionLine = "";
+
+        for (int i = 0; i <= lineLength; i++){
+            devitionLine = devitionLine + devitionChar;
+        }
+
+        return devitionLine;
     }
 }
+
