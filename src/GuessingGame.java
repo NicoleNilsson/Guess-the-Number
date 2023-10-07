@@ -4,15 +4,15 @@ import java.util.Scanner;
 
 public class GuessingGame {
     
+    //initieras här för att komma åt dem i flera metoder
     private int randomNumber;
     private int turn = 1;
     private int userGuess;
     private String addToLowScore;
-    private int choiceInMenu;
-    //slå ihop userGuess och choiceInMenu?
+    private String choiceInMenu;
     private Scanner gameScanner = new Scanner(System.in);
 
-    ScoreEntry entry = new ScoreEntry();
+    //borde den ligga nån annanstans?
 
     public GuessingGame(){
     }
@@ -33,13 +33,15 @@ public class GuessingGame {
 
     //metod som skapar ett slumpmässigt tal mellan 1-100
     private int createRandomNumber1To100(){
+        //kan man göra på ett annat sätt?/varför?
         randomNumber = new Random().nextInt(100) +1;
+        //+1 för annars blir det 0-99
         return randomNumber;
     }
     
-    //metod som kontrollerar om userGuess är en int
-    //ändra så jag kan testa choiceInMenu också?
-    //slå ihop userGuess och choiceInMenu?
+    //tar in userGuess
+    //borde det göras nån annanstans och isf hur?
+    //kontrollerar om userGuess är en int
     private int tryTheNumber(){
         while (true){
             try {
@@ -68,32 +70,37 @@ public class GuessingGame {
             System.out.println("Rätt! Du gissade rätt på " + turn + " försök.");
             gameScanner.nextLine();
             addToLowScore();
-            //turn = 1;
         }
     }
 
+    //skapar objekt av ScoreEntry
+    ScoreEntry entry = new ScoreEntry();
+
     //metod där antal gissningar kontrolleras 
     //och du får välja att lägga till på lowscore-listan om du klassar in
+    //+felhantering om ej anger ja eller nej
     private void addToLowScore(){
 
         if (entry.getLowScore().size() < 5 || turn < entry.getLowScore().get(4)){
-            
-            do{
+
             System.out.println("Vill du lägga till ditt resultat på lowscore-listan (Ja/Nej)? ");
-            //rensa buffert
             addToLowScore = gameScanner.nextLine();
-            } while ((!addToLowScore.equalsIgnoreCase("ja")) && (!addToLowScore.equalsIgnoreCase("nej")));
+
+            while ((!addToLowScore.equalsIgnoreCase("ja")) && (!addToLowScore.equalsIgnoreCase("nej"))){
+                System.out.println("Vänligen ange Ja eller Nej: ");
+                addToLowScore = gameScanner.nextLine();
+            }
     
             if (addToLowScore.equalsIgnoreCase("ja")){
                 entry.lowScore(turn);
-                menu();;
+                menu();
 
             } else if (addToLowScore.equalsIgnoreCase("nej")){
-                menu();;
+                menu();
             }
             
         } else {
-            menu();;
+            menu();
         }
     }
 
@@ -101,25 +108,31 @@ public class GuessingGame {
     private void menu(){
         System.out.println("Vad vill du göra?");
         
-        System.out.println("1. Spela igen");
-        System.out.println("2. Se lowscore-listan");
-        System.out.println("3. Avsluta spelet");
+        do {
+            System.out.println("1. Spela igen");
+            System.out.println("2. Se Low Score-listan");
+            System.out.println("3. Avsluta spelet");
 
-        choiceInMenu = gameScanner.nextInt();
+            choiceInMenu = gameScanner.nextLine();
 
-        //lägg till åtgärd om man anger annat än 1 2 3 
+                if (choiceInMenu.equals("1")){
+                    turn = 1;
+                    startGame();
+                    break;
+                    //för att stänga pågående spel
+                } else if (choiceInMenu.equals("2")){
+                    System.out.println("Low Scores: ");
+                    for (int score : entry.getLowScore()) {
+                        System.out.println(score);
+                    }
+                } else if (choiceInMenu.equals("3")){
+                    System.out.println("Tack för den här gången!");
+                    break;
+                } else {
+                    System.out.println("Vänligen ange ett av följande alternativ: ");
+                }
 
-            if (choiceInMenu == 1){
-                turn = 1;
-                startGame();
-            } else if (choiceInMenu == 2){
-                System.out.println("Lowscores: ");
-                for (int sc : entry.getLowScore()) {
-                    System.out.println(sc);
-                } menu();
-            } else if (choiceInMenu == 3){
-                System.out.println("Tack för den här gången!");
-            }
-
+            } while (!choiceInMenu.equals("1") || !choiceInMenu.equals("3"));
+            //ingen equals 2 så den fortsätter do while-loopen och skriver ut menyn igen efter lowscore
     }
 }

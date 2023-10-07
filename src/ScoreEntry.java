@@ -3,16 +3,8 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class ScoreEntry {
-    private int score;
+
     private ArrayList<Integer> lowScore = new ArrayList<>(Arrays.asList());
-
-    public void setScore(int score){
-        this.score = score;
-    }
-
-    public int getScore(){
-        return score;
-    }
 
     public void setLowScore (ArrayList<Integer> lowscore){
         this.lowScore = lowscore;
@@ -23,15 +15,6 @@ public class ScoreEntry {
     }
 
     public ScoreEntry(){
-
-    }
-
-    public ScoreEntry(int score){
-        this.score = score;
-        lowScore(score);
-        for (int sc : lowScore) {
-            System.out.println(sc);
-        }
     }
 
     public ArrayList<Integer> lowScore(int score){
@@ -40,6 +23,8 @@ public class ScoreEntry {
         } else {
             lowScore.add(score);
         }
+        
+        //sorterar listan i storleksordning
         Collections.sort(lowScore);
         return lowScore;
     }
