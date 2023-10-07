@@ -104,15 +104,13 @@ public class GuessingGame {
 
     //metod för meny
     private void menu(){
-        String menuTitle = "Vad vill du göra?";
+    
+        String [] menuEntries = {"Vad vill du göra?", "1. Spela igen", "2. Se Low Score-lista", "3. Avsluta spelet"};
+        calucalteMenuWidth(menuEntries);
         
         while (true) {
             System.out.println("+" + createDevitionLine('-', 30) + "+");
-            
-            
-            
-            
-            System.out.println("|" + centerString(menuTitle, 15) + "|");
+            System.out.println("|" + centerString("Vad vill du göra?", 15) + "|");
             System.out.println("+-------------------------------+");
             System.out.println("|" + centerString("1. Spela igen", 15) + "|");
             System.out.println("+-------------------------------+");
@@ -140,10 +138,19 @@ public class GuessingGame {
                     System.out.println("Tack för den här gången!");
                     break;
                 } else {
-                    menuTitle = "Vänligen ange ett av följande alternativ";
+                    System.out.println("Vänligen ange ett av följande alternativ");;
                 }
 
         }
+    }
+
+    private int calucalteMenuWidth(String [] menuEntries){
+        
+        for (String entry : menuEntries) {
+            
+        }
+        
+        return 1;
     }
 
     private String centerString (String nonCenteredString, int padding){
