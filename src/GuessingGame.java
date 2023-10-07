@@ -106,18 +106,16 @@ public class GuessingGame {
     private void menu(){
     
         String [] menuEntries = {"Vad vill du göra?", "1. Spela igen", "2. Se Low Score-lista", "3. Avsluta spelet"};
-        calucalteMenuWidth(menuEntries);
         
         while (true) {
-            System.out.println("+" + createDevitionLine('-', 30) + "+");
-            System.out.println("|" + centerString("Vad vill du göra?", 15) + "|");
-            System.out.println("+-------------------------------+");
-            System.out.println("|" + centerString("1. Spela igen", 15) + "|");
-            System.out.println("+-------------------------------+");
-            System.out.println("|" + centerString("2. Se Low Score-lista", 15) + "|");
-            System.out.println("+-------------------------------+");
-            System.out.println("|" + centerString("3. Avsluta spelet", 15) + "|");
-            System.out.println("+-------------------------------+");
+            int menuWidth = calucalteMenuWidth(menuEntries) + 2;
+            int padding = menuWidth / 2;
+
+            for (int i = 0; i < menuEntries.length; i++){
+                System.out.println("+" + createDevitionLine('-', menuWidth) + "+");
+                System.out.println("|" + centerString(menuEntries[i], padding) + "|");
+            }
+            System.out.println("+" + createDevitionLine('-', menuWidth) + "+");
 
             choiceInMenu = gameScanner.nextLine();
 
@@ -138,25 +136,29 @@ public class GuessingGame {
                     System.out.println("Tack för den här gången!");
                     break;
                 } else {
-                    System.out.println("Vänligen ange ett av följande alternativ");;
+                    menuEntries[0] = "Vänligen ange ett av följande alternativ!";
                 }
 
         }
     }
 
     private int calucalteMenuWidth(String [] menuEntries){
-        
+        int menuEntry = 0;
+
         for (String entry : menuEntries) {
-            
+
+            if (menuEntry < entry.length()){
+                menuEntry = entry.length();
+            }
         }
         
-        return 1;
+        return menuEntry;
     }
 
     private String centerString (String nonCenteredString, int padding){
 
         if (nonCenteredString.length() % 2 == 0){
-            String centeredString = String.format("%" + (padding - (nonCenteredString.length()/2)) + "s%s%" + ((padding + 1) - (nonCenteredString.length()/2)) + "s", "", nonCenteredString, "");
+            String centeredString = String.format("%" + (padding - (nonCenteredString.length()/2)) + "s%s%" + ((padding+1) - (nonCenteredString.length()/2)) + "s", "", nonCenteredString, "");
         return centeredString;
         }
 
@@ -167,8 +169,12 @@ public class GuessingGame {
     private String createDevitionLine (char devitionChar, int lineLength){
         String devitionLine = "";
 
-        for (int i = 0; i <= lineLength; i++){
+        for (int i = 0; i < lineLength; i++){
             devitionLine = devitionLine + devitionChar;
+        }
+
+        if (lineLength % 2 == 0){
+            devitionLine = devitionLine + devitionChar; 
         }
 
         return devitionLine;
