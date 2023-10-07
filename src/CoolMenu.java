@@ -1,31 +1,33 @@
+import java.util.ArrayList;
+
 public class CoolMenu {
 
     private char horisontalChar;
     private char cornerChar;
     private char verticalChar;
-    private String[] entries;
+    private ArrayList<String> stringEntries = new ArrayList<>();
     
-    public CoolMenu(String [] entries){
+    public CoolMenu(ArrayList<String> stringEntries){
 
     }
 
-    public CoolMenu(String [] entries, char horisontalChar, char verticalChar, char cornerChar){
-        this.entries = entries;
+    public CoolMenu(ArrayList<String> stringEntries, char horisontalChar, char verticalChar, char cornerChar){
+        this.stringEntries = stringEntries;
         this.horisontalChar = horisontalChar;
         this.cornerChar = cornerChar;
         this.verticalChar = verticalChar;
     }
 
-    public CoolMenu (String [] entries, char verticalChar){
-        this.entries = entries;
+    public CoolMenu (ArrayList<String> stringEntries, char verticalChar){
+        this.stringEntries = stringEntries;
         this.verticalChar = verticalChar;
     }
     
     
-    public int calucalteMenuWidth(){
+    public int calucalteMenuWidth(ArrayList<String> stringEntries){
         int menuEntry = 0;
 
-        for (String entry : entries) {
+        for (String entry : stringEntries) {
 
             if (menuEntry < entry.length()){
                 menuEntry = entry.length();

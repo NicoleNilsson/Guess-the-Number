@@ -1,10 +1,10 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class ScoreBoard {
 
-    private ArrayList<Integer> scoreList = new ArrayList<>(Arrays.asList());
+    private ArrayList<Integer> scoreList = new ArrayList<>();
+    private ArrayList<String> scoreListAsString = new ArrayList<>();
     private int listLength;
     private int listIndex = listLength - 1;
 
@@ -15,6 +15,15 @@ public class ScoreBoard {
     public ArrayList<Integer> getScoreList(){
         return scoreList;
     }
+
+    public void setScoreListAsString (ArrayList<String> scoreListAsString){
+        this.scoreListAsString = scoreListAsString;
+    }
+
+    public ArrayList<String> getScoreListAsString(){
+        return scoreListAsString;
+    }
+
 
     public void setListLength (int listLength){
         this.listLength = listLength;
@@ -46,7 +55,19 @@ public class ScoreBoard {
 
         //sorterar listan i storleksordning
         Collections.sort(scoreList);
+
         return scoreList;
     }
+
+    public ArrayList<String> scoreListAsString (){
+
+        for (Integer score : scoreList){
+            scoreListAsString.add(score.toString());
+        }
+
+        return scoreListAsString;
+            
+    }
+
 
 }

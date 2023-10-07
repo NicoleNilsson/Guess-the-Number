@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -105,22 +107,30 @@ public class GuessingGame {
     //metod för meny
     private void menu(){
     
-        String [] menuEntries = {"Vad vill du göra?", "1. Spela igen", "2. Se Low Score-lista", "3. Avsluta spelet"};
-        
+        //String [] menuEntries = {"Vad vill du göra?", "1. Spela igen", "2. Se Low Score-lista", "3. Avsluta spelet"};
+
+        ArrayList<String> menuEntries = new ArrayList<>(Arrays.asList("Vad vill du göra?", "1. Spela igen", "2. Se Low Score-lista", "3. Avsluta spelet"));
+
         while (true) {
 
             //skapa objekt och ange tecken för hörn, sidor och skiljelinje i menyn
-            CoolMenu gameMenu = new CoolMenu(menuEntries, '-', '|', '+');
+            CoolMenu gameMenu = new CoolMenu (menuEntries, '-', '|', '+');
+            CoolMenu lowScoreBoard = new CoolMenu (lowScore.getScoreListAsString(), '-', '|', '+');
+            
             
 
-            int menuWidth = gameMenu.calucalteMenuWidth() + 2;
-            int padding = menuWidth / 2;
+            int gameMenuWidth = gameMenu.calucalteMenuWidth(menuEntries) + 2;
+            int lowScoreBoardWidth = gameMenu.calucalteMenuWidth(lowScore.getScoreListAsString()) + 2;
+            int padding = gameMenuWidth / 2;
+            int padding2 = lowScoreBoardWidth / 2;
+            
+            lowScore.scoreListAsString();
 
-            for (int i = 0; i < menuEntries.length; i++){
-                System.out.println(gameMenu.createDevitionLine(menuWidth));
-                System.out.println(gameMenu.centerString(menuEntries[i], padding));
+            for (int i = 0; i < menuEntries.size(); i++){
+                System.out.println(gameMenu.createDevitionLine(gameMenuWidth));
+                System.out.println(gameMenu.centerString(menuEntries.get(i), padding));
             }
-            System.out.println(gameMenu.createDevitionLine(menuWidth));
+            System.out.println(gameMenu.createDevitionLine(gameMenuWidth));
 
             choiceInMenu = gameScanner.nextLine();
 
@@ -130,18 +140,15 @@ public class GuessingGame {
                     break;
                     //för att stänga pågående spel
                 } else if (choiceInMenu.equals("2")){                   
-                    System.out.println("+---------------------+");
-                    System.out.println("|" + gameMenu.centerString("Low Scores:", 10) + "|");
-                    System.out.println("+---------------------+");
-                    for (int score : lowScore.getScoreList()) {
-                        System.out.println("|" + gameMenu.centerString(Integer.toString(score), 10) + "|");
-                        System.out.println("+---------------------+");
+                    System.out.println("|" + lowScoreBoard.centerString("Low Scores:", 10) + "|");
+                    for (int i = 0; i < lowScore.getScoreListAsString().size(); i++) {
+                        System.out.println(lowScoreBoard.centerString(lowScore.getScoreListAsString().get(i), padding2));
                     }
                 } else if (choiceInMenu.equals("3")){
                     System.out.println("Tack för den här gången!");
                     break;
                 } else {
-                    menuEntries[0] = "Vänligen ange ett av följande alternativ!";
+                    menuEntries.set(0, "Vänligen ange ett av följande alternativ!");
                 }
 
         }
