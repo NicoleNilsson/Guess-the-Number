@@ -17,9 +17,11 @@ public class GuessingGame {
     //skapar objekt av ScoreBoard och ger lowscorelistan längden 5
     ScoreBoard lowScore = new ScoreBoard(5);
 
+    //constructor
     public GuessingGame(){
     }
 
+    //metod som initierar spelet
     public void startGame(){
         createRandomNumber(100, 1);
         System.out.println(randomNumber);
@@ -36,13 +38,11 @@ public class GuessingGame {
 
     //metod som skapar ett slumpmässigt tal mellan 0-bound + add
     private int createRandomNumber(int bound, int add){
-        //kan man göra på ett annat sätt?/varför?
         randomNumber = new Random().nextInt(bound) + add;
-        //+1 för annars blir det 0-99
         return randomNumber;
     }
     
-    //tar in och testar userGuess
+    //metod som tar in och testar att userGuess är en int
     private int tryTheNumber(){
         while (true){
             try {
@@ -76,7 +76,6 @@ public class GuessingGame {
 
     //metod för att lägga till lowscore
     private void addToLowScore(){
-
         if (lowScore.getScoreList().size() < lowScore.getListLength() || turn < lowScore.getScoreList().get(lowScore.getListIndex())){
 
             System.out.println("Vill du lägga till ditt resultat på lowscore-listan (Ja/Nej)? ");
@@ -100,7 +99,7 @@ public class GuessingGame {
         }
     }
 
-    //metod för meny
+    //metod för att skapa meny och dess funktioner
     private void menu(){
 
         ArrayList<String> menuEntries = new ArrayList<>(Arrays.asList("Vad vill du göra?", "1. Spela igen", "2. Se Low Score-lista", "3. Avsluta spelet"));
@@ -109,26 +108,25 @@ public class GuessingGame {
         CoolMenu lowScoreBoard = new CoolMenu (lowScore.getScoreListAsString(), '-', '|', '+');
 
         while (true) {
-
-            lowScore.scoreListAsString();
+            
             String menuDevitionLine = gameMenu.createDevitionLine(gameMenu.findLongestEntry(menuEntries) + 2);
-            String lowScoreDevisionLine = lowScoreBoard.createDevitionLine(lowScoreBoard.findLongestEntry(lowScore.getScoreListAsString()) + 2);
 
             for (int i = 0; i < menuEntries.size(); i++){
                 System.out.println(menuDevitionLine);
                 System.out.println(gameMenu.centerString(menuEntries.get(i), gameMenu.createPadding()));
             }
             System.out.println(menuDevitionLine);
-
-            choiceInMenu = gameScanner.nextLine();
-
+            
+            lowScore.scoreListAsString();
+            String lowScoreDevisionLine = lowScoreBoard.createDevitionLine(lowScoreBoard.findLongestEntry(lowScore.getScoreListAsString()) + 2);
+            choiceInMenu = gameScanner.nextLine();  
+              
                 if (choiceInMenu.equals("1")){
                     turn = 1;
                     startGame();
                     break;
                     
                 } else if (choiceInMenu.equals("2")){                    
-
                     for (int i = 0; i < lowScore.getScoreListAsString().size(); i++) {
                         System.out.println(lowScoreDevisionLine);
                         System.out.println(lowScoreBoard.centerString(lowScore.getScoreListAsString().get(i), lowScoreBoard.createPadding()));

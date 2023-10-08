@@ -6,27 +6,25 @@ public class CoolMenu {
     private char cornerChar;
     private char verticalChar;
     private int longestEntry;
-    private ArrayList<String> stringEntries = new ArrayList<>();
+    //behövs den här verkligen?
+    //private ArrayList<String> stringEntries = new ArrayList<>();
     
+    //3 constructors med olika parametrar
     public CoolMenu(ArrayList<String> stringEntries){
-
     }
 
     public CoolMenu(ArrayList<String> stringEntries, char horisontalChar, char verticalChar, char cornerChar){
-        this.stringEntries = stringEntries;
         this.horisontalChar = horisontalChar;
         this.cornerChar = cornerChar;
         this.verticalChar = verticalChar;
     }
 
     public CoolMenu (ArrayList<String> stringEntries, char verticalChar){
-        this.stringEntries = stringEntries;
         this.verticalChar = verticalChar;
     }
     
     
     public int findLongestEntry(ArrayList<String> stringEntries){
-
         for (String entry : stringEntries) {
 
             if (longestEntry < entry.length()){
@@ -43,6 +41,7 @@ public class CoolMenu {
         return padding;
     }
 
+    //gör en sträng centrerad mellan två vertikala karaktärer med hjälp av angedd padding
     public String centerString (String nonCenteredString, int padding){
 
         if (nonCenteredString.length() % 2 == 0){
@@ -54,6 +53,7 @@ public class CoolMenu {
         return verticalChar + centeredString + verticalChar;
     }
 
+    //skapar en horisontell skiljelinje med hjälp av angedd karaktär och längd
     public String createDevitionLine (int amountOfHorisontalChar){
         String devitionLine = "";
 
