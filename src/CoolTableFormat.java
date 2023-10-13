@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class CoolFormat {
+public class CoolTableFormat {
 
     private char horisontalChar;
     private char cornerChar;
@@ -11,16 +11,16 @@ public class CoolFormat {
     //private ArrayList<String> stringEntries = new ArrayList<>();
     
     //3 constructors med olika parametrar
-    public CoolFormat(ArrayList<String> stringEntries){
+    public CoolTableFormat(ArrayList<String> stringEntries){
     }
 
-    public CoolFormat(ArrayList<String> stringEntries, char horisontalChar, char verticalChar, char cornerChar){
+    public CoolTableFormat(ArrayList<String> stringEntries, char horisontalChar, char verticalChar, char cornerChar){
         this.horisontalChar = horisontalChar;
         this.cornerChar = cornerChar;
         this.verticalChar = verticalChar;
     }
 
-    public CoolFormat (ArrayList<String> stringEntries, char verticalChar){
+    public CoolTableFormat (ArrayList<String> stringEntries, char verticalChar){
         this.verticalChar = verticalChar;
     }
     

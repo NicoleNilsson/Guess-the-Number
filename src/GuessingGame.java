@@ -104,8 +104,8 @@ public class GuessingGame {
 
         ArrayList<String> menuEntries = new ArrayList<>(Arrays.asList("Vad vill du göra?", "1. Spela igen", "2. Se Low Score-lista", "3. Avsluta spelet"));
         
-        CoolFormat gameMenu = new CoolFormat (menuEntries, '-', '|', '+');
-        CoolFormat lowScoreBoard = new CoolFormat (lowScore.getScoreListAsString(), '-', '|', '+');
+        CoolTableFormat gameMenu = new CoolTableFormat (menuEntries, '-', '|', '+');
+        CoolTableFormat lowScoreBoard = new CoolTableFormat (lowScore.getScoreListAsString(), '-', '|', '+');
 
         while (true) {
             
