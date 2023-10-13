@@ -4,11 +4,13 @@ import java.util.Collections;
 //klass för att skapa scoreboards
 public class ScoreBoard {
 
+    //instansvariabler
     private ArrayList<Integer> scoreList = new ArrayList<>();
     private ArrayList<String> scoreListAsString = new ArrayList<>();
     private int listLength;
     private int listIndex;
 
+    //getters och setters
     public void setScoreList (ArrayList<Integer> scoreList){
         this.scoreList = scoreList;
     }
