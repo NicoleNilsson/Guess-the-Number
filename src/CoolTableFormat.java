@@ -27,22 +27,31 @@ public class CoolTableFormat {
         return longestEntry;
     }
 
-    //metod som skapar padding
-    public int createPadding (){
-        int padding = (longestEntry + 2) / 2;
 
-        return padding;
+    public int createRightPadding (String nonCenteredString){
+        int padding = (longestEntry + 2) / 2;
+        int rightPadding = padding - (nonCenteredString.length()/2);
+
+        return rightPadding;
+    }
+    //metod som skapar padding
+    public int createLeftPadding (String nonCenteredString){
+        int padding = (longestEntry + 2) / 2;
+        int leftPadding = padding - (nonCenteredString.length()/2);
+
+        return leftPadding;
     }
 
     //metod som gör en sträng centrerad mellan två vertikala karaktärer med hjälp av angedd padding
-    public String centerString (String nonCenteredString, int padding){
+    public String centerString (String nonCenteredString, int rightPadding, int leftPadding){
 
         if (nonCenteredString.length() % 2 == 0){
-            String centeredString = String.format("%" + (padding - (nonCenteredString.length()/2)) + "s%s%" + ((padding+1) - (nonCenteredString.length()/2)) + "s", "", nonCenteredString, "");
+            //s% är där vi placerar vår sträng
+            String centeredString = String.format("%" + (rightPadding) + "s%s%" + (leftPadding+1) + "s", "", nonCenteredString, "");
         return verticalChar + centeredString + verticalChar;
         }
 
-        String centeredString = String.format("%" + (padding - (nonCenteredString.length()/2)) + "s%s%" + (padding - (nonCenteredString.length()/2)) + "s", "", nonCenteredString, "");
+        String centeredString = String.format("%" + (rightPadding) + "s%s%" + (leftPadding) + "s", "", nonCenteredString, "");
         return verticalChar + centeredString + verticalChar;
     }
 

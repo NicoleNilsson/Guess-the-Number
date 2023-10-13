@@ -113,7 +113,7 @@ public class GuessingGame {
 
             for (int i = 0; i < menuEntries.size(); i++){
                 System.out.println(menuDevitionLine);
-                System.out.println(gameMenu.centerString(menuEntries.get(i), gameMenu.createPadding()));
+                System.out.println(gameMenu.centerString(menuEntries.get(i), gameMenu.createRightPadding(menuEntries.get(i)), gameMenu.createLeftPadding(menuEntries.get(i))));
             }
             System.out.println(menuDevitionLine);
             
@@ -129,7 +129,7 @@ public class GuessingGame {
                 } else if (choiceInMenu.equals("2")){                    
                     for (int i = 0; i < lowScore.getScoreListAsString().size(); i++) {
                         System.out.println(lowScoreDevisionLine);
-                        System.out.println(lowScoreBoard.centerString(lowScore.getScoreListAsString().get(i), lowScoreBoard.createPadding()));
+                        System.out.println(lowScoreBoard.centerString(lowScore.getScoreListAsString().get(i), lowScoreBoard.createRightPadding(lowScore.getScoreListAsString().get(i)), lowScoreBoard.createLeftPadding(lowScore.getScoreListAsString().get(i))));
                     }
                     System.out.println(lowScoreDevisionLine);
 
