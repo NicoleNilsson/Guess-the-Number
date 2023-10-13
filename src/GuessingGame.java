@@ -101,46 +101,67 @@ public class GuessingGame {
 
     //metod för att skapa meny och dess funktioner
     private void menu(){
-
-        ArrayList<String> menuEntries = new ArrayList<>(Arrays.asList("Vad vill du göra?", "1. Spela igen", "2. Se Low Score-lista", "3. Avsluta spelet"));
+        //skapar en lista med våra menyalternativ
+        ArrayList<String> menuEntries = new ArrayList<>(Arrays.asList("Vad vill du göra?",
+                                                                        "1. Spela igen",
+                                                                        "2. Se Low Score-lista",
+                                                                        "3. Avsluta spelet"));
         
+        //skapar ett objekt av typen CoolTableFormat
         CoolTableFormat gameMenu = new CoolTableFormat (menuEntries, '-', '|', '+');
-        CoolTableFormat lowScoreBoard = new CoolTableFormat (lowScore.getScoreListAsString(), '-', '|', '+');
 
         while (true) {
-            
+            //formaterar separationslinjer
             String menuDevitionLine = gameMenu.createDevitionLine(gameMenu.findLongestEntry(menuEntries) + 2);
+            
+            //formaterar och skriver ut menyn
+            for (String entry : menuEntries) {
+                int menuRightPadding = gameMenu.createRightPadding(entry);
+                int menuLeftPadding = gameMenu.createLeftPadding(entry);
 
-            for (int i = 0; i < menuEntries.size(); i++){
                 System.out.println(menuDevitionLine);
-                System.out.println(gameMenu.centerString(menuEntries.get(i), gameMenu.createRightPadding(menuEntries.get(i)), gameMenu.createLeftPadding(menuEntries.get(i))));
+                System.out.println(gameMenu.centerString(entry, menuRightPadding, menuLeftPadding));
             }
             System.out.println(menuDevitionLine);
             
-            lowScore.scoreListAsString();
-            String lowScoreDevisionLine = lowScoreBoard.createDevitionLine(lowScoreBoard.findLongestEntry(lowScore.getScoreListAsString()) + 2);
+            //tar in val i menyn och utvärderar input
             choiceInMenu = gameScanner.nextLine();  
               
-                if (choiceInMenu.equals("1")){
-                    turn = 1;
-                    startGame();
-                    break;
-                    
-                } else if (choiceInMenu.equals("2")){                    
-                    for (int i = 0; i < lowScore.getScoreListAsString().size(); i++) {
-                        System.out.println(lowScoreDevisionLine);
-                        System.out.println(lowScoreBoard.centerString(lowScore.getScoreListAsString().get(i), lowScoreBoard.createRightPadding(lowScore.getScoreListAsString().get(i)), lowScoreBoard.createLeftPadding(lowScore.getScoreListAsString().get(i))));
-                    }
-                    System.out.println(lowScoreDevisionLine);
+            if (choiceInMenu.equals("1")){
+                turn = 1;
+                //kan bli ett problem om spelet startas för många gånger
+                startGame();
+                break;
+                
+            } else if (choiceInMenu.equals("2")){ 
+                //skriver ut lowscore och kör om menyn
+                printScoreBoard();
 
-                } else if (choiceInMenu.equals("3")){
-                    System.out.println("Tack för den här gången!");
-                    break;
+            } else if (choiceInMenu.equals("3")){
+                System.out.println("Tack för den här gången!");
+                break;
 
-                } else {
-                    menuEntries.set(0, "Vänligen ange ett av följande alternativ!");
-                }
+            } else {
+                menuEntries.set(0, "Vänligen ange ett av följande alternativ!");
+                //kör om menyn med felmeddelande
+            }
         }
+    }
+
+    private void printScoreBoard (){
+        CoolTableFormat lowScoreBoard = new CoolTableFormat (lowScore.getScoreListAsString(), '-', '|', '+');
+        
+        lowScore.scoreListAsString();
+        String lowScoreDevisionLine = lowScoreBoard.createDevitionLine(lowScoreBoard.findLongestEntry(lowScore.getScoreListAsString()) + 2);
+
+        for (String score : lowScore.getScoreListAsString()) {
+            int lowScoreRightPadding = lowScoreBoard.createRightPadding(score);
+            int lowScoreLeftPadding = lowScoreBoard.createLeftPadding(score);
+
+            System.out.println(lowScoreDevisionLine);
+            System.out.println(lowScoreBoard.centerString(score, lowScoreRightPadding, lowScoreLeftPadding));
+        }
+        System.out.println(lowScoreDevisionLine);
     }
 }
 
