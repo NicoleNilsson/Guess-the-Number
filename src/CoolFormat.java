@@ -1,25 +1,26 @@
 import java.util.ArrayList;
 
-public class CoolMenu {
+public class CoolFormat {
 
     private char horisontalChar;
     private char cornerChar;
     private char verticalChar;
     private int longestEntry;
+
     //behövs den här verkligen?
     //private ArrayList<String> stringEntries = new ArrayList<>();
     
     //3 constructors med olika parametrar
-    public CoolMenu(ArrayList<String> stringEntries){
+    public CoolFormat(ArrayList<String> stringEntries){
     }
 
-    public CoolMenu(ArrayList<String> stringEntries, char horisontalChar, char verticalChar, char cornerChar){
+    public CoolFormat(ArrayList<String> stringEntries, char horisontalChar, char verticalChar, char cornerChar){
         this.horisontalChar = horisontalChar;
         this.cornerChar = cornerChar;
         this.verticalChar = verticalChar;
     }
 
-    public CoolMenu (ArrayList<String> stringEntries, char verticalChar){
+    public CoolFormat (ArrayList<String> stringEntries, char verticalChar){
         this.verticalChar = verticalChar;
     }
     
