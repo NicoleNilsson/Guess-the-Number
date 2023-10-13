@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class GuessingGame {
     
-    //initieras här för att komma åt dem i flera metoder
+    //instansvariabler
     private int randomNumber;
     private int turn = 1;
     private int userGuess;
@@ -14,7 +14,7 @@ public class GuessingGame {
     private String choiceInMenu;
     private Scanner gameScanner = new Scanner(System.in);
 
-    //skapar objekt av ScoreBoard och ger lowscorelistan längden 5
+    //skapar objektet lowscore av scoreboard och ger lowscorelistan längden 5
     ScoreBoard lowScore = new ScoreBoard(5);
 
     //constructor
@@ -36,13 +36,13 @@ public class GuessingGame {
         }
     }
 
-    //metod som skapar ett slumpmässigt tal mellan 0-bound + add
+    //metod som skapar ett slumpmässigt tal med angett bound och add
     private int createRandomNumber(int bound, int add){
         randomNumber = new Random().nextInt(bound) + add;
         return randomNumber;
     }
     
-    //metod som tar in och testar att userGuess är en int
+    //metod som tar in och testar att userGuess är en int + felhantering
     private int tryTheNumber(){
         while (true){
             try {
@@ -74,7 +74,7 @@ public class GuessingGame {
         }
     }
 
-    //metod för att lägga till lowscore
+    //metod för att lägga till lowscore + felhantering
     private void addToLowScore(){
         if (lowScore.getScoreList().size() < lowScore.getListLength() || turn < lowScore.getScoreList().get(lowScore.getListIndex())){
 
