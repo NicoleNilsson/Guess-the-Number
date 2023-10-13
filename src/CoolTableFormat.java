@@ -7,24 +7,14 @@ public class CoolTableFormat {
     private char verticalChar;
     private int longestEntry;
 
-    //behövs den här verkligen?
-    //private ArrayList<String> stringEntries = new ArrayList<>();
-    
-    //3 constructors med olika parametrar
-    public CoolTableFormat(ArrayList<String> stringEntries){
-    }
-
+    //constructor
     public CoolTableFormat(ArrayList<String> stringEntries, char horisontalChar, char verticalChar, char cornerChar){
         this.horisontalChar = horisontalChar;
         this.cornerChar = cornerChar;
         this.verticalChar = verticalChar;
     }
-
-    public CoolTableFormat (ArrayList<String> stringEntries, char verticalChar){
-        this.verticalChar = verticalChar;
-    }
     
-    
+    //metod som hittar längsta strängen i en lista
     public int findLongestEntry(ArrayList<String> stringEntries){
         for (String entry : stringEntries) {
 
@@ -36,13 +26,14 @@ public class CoolTableFormat {
         return longestEntry;
     }
 
+    //metod som skapar padding
     public int createPadding (){
         int padding = (longestEntry + 2) / 2;
 
         return padding;
     }
 
-    //gör en sträng centrerad mellan två vertikala karaktärer med hjälp av angedd padding
+    //metod som gör en sträng centrerad mellan två vertikala karaktärer med hjälp av angedd padding
     public String centerString (String nonCenteredString, int padding){
 
         if (nonCenteredString.length() % 2 == 0){
@@ -54,7 +45,7 @@ public class CoolTableFormat {
         return verticalChar + centeredString + verticalChar;
     }
 
-    //skapar en horisontell skiljelinje med hjälp av angedd karaktär och längd
+    //metod som skapar en horisontell skiljelinje med hjälp av angedd karaktär och längd
     public String createDevitionLine (int amountOfHorisontalChar){
         String devitionLine = "";
 
