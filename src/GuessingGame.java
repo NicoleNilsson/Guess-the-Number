@@ -76,7 +76,7 @@ public class GuessingGame {
 
     //metod för att lägga till antal gissningar i lowScore + felhantering
     private void addToLowScore(){
-        if (lowScore.getScoreList().size() < lowScore.getListLength() || turn < lowScore.getScoreList().get(lowScore.getListIndex())){
+        if (lowScore.getScoreList().size() < lowScore.getMaxSize() || turn < lowScore.getScoreList().get(lowScore.getListIndex())){
             System.out.println("Vill du lägga till ditt resultat på lowscore-listan (Ja/Nej)? ");
             addToLowScore = gameScanner.nextLine();
             while ((!addToLowScore.equalsIgnoreCase("ja")) && (!addToLowScore.equalsIgnoreCase("nej"))){
@@ -102,25 +102,17 @@ public class GuessingGame {
                                                                         "2. Se Low Score-listan",
                                                                         "3. Avsluta spelet"));
         
-        //skapar objekt gameMenu av typen CoolTableFormat
-        //med paramterar ArrayList<String>, horisontalChar, verticalChar, cornerChar, extendPaddingBy(antal extra karaktärer i padding)
-        CoolTableFormat gameMenu = new CoolTableFormat (menuEntries, '-', '|', '+', 2);
+        
+        //anropar metoden som konverterar vår scorelista från int till String
+        lowScore.scoreListAsString();
+        //skapar våra objekt gameMenu och lowScoreBoard av typen CoolTableFormat
+        //med paramterar ArrayList<String>, horisontalChar, verticalChar, cornerChar, extendPaddingBy
+        CoolTableFormat gameMenu = new CoolTableFormat (menuEntries, '-', '|', '+', 1);
+        CoolTableFormat lowScoreBoard = new CoolTableFormat (lowScore.getScoreListAsString(), '-', '|', '+', 1); 
 
-        while (true) {
-            //gameMenu.findLongestEntry();
-           
-            for (String entry : menuEntries) {
-                //skapar padding utifrån längden på längsta strängen i vår lista
-                gameMenu.createRightPadding(entry);
-                gameMenu.createLeftPadding(entry);
-
-                //formaterar och skriver ut skiljelinjer
-                //skriver ut den formatterade menyn
-                System.out.println(gameMenu.createDevitionLine());
-                System.out.println(gameMenu.centerString(entry));
-            }
-            System.out.println(gameMenu.createDevitionLine());
-            
+        while (true) {                       
+            //kallar på metod som formaterar och skriver ut vår meny
+            gameMenu.formatAndPrint(menuEntries);
             //tar in val i menyn och utvärderar input
             choiceInMenu = gameScanner.nextLine();   
             if (choiceInMenu.equals("1")){
@@ -128,8 +120,8 @@ public class GuessingGame {
                 playagain = true;
                 break;                
             } else if (choiceInMenu.equals("2")){ 
-                //skriver ut lowscore och kör om menyn
-                printScoreBoard();
+                //formaterar och skriver ut lowscore
+                lowScoreBoard.formatAndPrint(lowScore.getScoreListAsString());
                 //behövs om man tidigare har angett fel alternativ
                 menuEntries.set(0, "Vad vill du göra?");
 
@@ -143,29 +135,6 @@ public class GuessingGame {
                 menuEntries.set(0, "Vänligen ange ett av följande alternativ!");                
             }
         }
-    }
-
-    private void printScoreBoard (){
-        //anropar metoden som konverterar vår scorelista från int till String
-        lowScore.scoreListAsString();
-        
-        //skapar objektet lowScoreBoard av typen CoolTableFormat, som formaterar vår lowscore-lista 
-        //med paramterar ArrayList<String>, horisontalChar, verticalChar, cornerChar, extendPaddingBy(antal extra karaktärer i padding)
-        CoolTableFormat lowScoreBoard = new CoolTableFormat (lowScore.getScoreListAsString(), '-', '|', '+', 2);  
-        
-        //anropar metod som tar fram längden på den längsta strängen i en lista
-        //lowScoreBoard.findLongestEntry();
-        for (String score : lowScore.getScoreListAsString()) {
-            //skapar padding utifrån längden på den längsta strängen i vår lista
-            lowScoreBoard.createRightPadding(score);
-            lowScoreBoard.createLeftPadding(score);
-
-            //formaterar och skriver ut skiljelinjer
-            //skriver ut den formatterade listan
-            System.out.println(lowScoreBoard.createDevitionLine());
-            System.out.println(lowScoreBoard.centerString(score));
-        }
-        System.out.println(lowScoreBoard.createDevitionLine());
     }
 }
 

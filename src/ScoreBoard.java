@@ -7,69 +7,49 @@ public class ScoreBoard {
     //instansvariabler
     private ArrayList<Integer> scoreList = new ArrayList<>();
     private ArrayList<String> scoreListAsString = new ArrayList<>();
-    private int listLength;
+    private int maxSize;
     private int listIndex;
-
-    //getters och setters
-    public void setScoreList (ArrayList<Integer> scoreList){
-        this.scoreList = scoreList;
-    }
-    public ArrayList<Integer> getScoreList(){
-        return scoreList;
+    
+    //constructor för en scoreboard med önskad längd som parameter
+    public ScoreBoard(int maxSize){
+        this.maxSize = maxSize;
     }
 
-    public void setScoreListAsString (ArrayList<String> scoreListAsString){
-        this.scoreListAsString = scoreListAsString;
-    }
-    public ArrayList<String> getScoreListAsString(){
-        return scoreListAsString;
-    }
-
-    public void setListLength (int listLength){
-        this.listLength = listLength;
-    }
-    public int getListLength (){
-        return listLength;
-    }
-
-    public void setListIndex(int listIndex){
-        this.listIndex = listIndex;
-    }
-    public int getListIndex(){
-        return listIndex;
-    }
-
-    //constructor av en scoreboard med önskad längd
-    public ScoreBoard(int listLength){
-        this.listLength = listLength;
-    }
+        //getters (behöver inga setters i GuessingGame men är lätt att lägga till vid behov)
+        public ArrayList<Integer> getScoreList(){
+            return scoreList;
+        }
+        public ArrayList<String> getScoreListAsString(){
+            return scoreListAsString;
+        }
+        public int getMaxSize (){
+            return maxSize;
+        }
+        public int getListIndex(){
+            return listIndex;
+        }
 
     //metod som returnerar score i en sorterad lista av den maxlängd som angetts via constructorn
     public ArrayList<Integer> scoreList(int score){
-        if (scoreList.size() == listLength){;
-            listIndex = listLength -1;
+        if (scoreList.size() == maxSize){;
             scoreList.set(listIndex, score);
         } else {
             scoreList.add(score);
         }
-
+        listIndex = scoreList.size() - 1;
         Collections.sort(scoreList);
-
         return scoreList;
     }
 
     //metod som returnerar scoreList som en sträng för att kunna använda den i cooltableformat
     public ArrayList<String> scoreListAsString (){
-        
         //clear för annars sparas listan varje gång den printats ut i guessinggame
         scoreListAsString.clear();
 
         scoreListAsString.add("Low Scores:");
-
         for (Integer score : scoreList){
             scoreListAsString.add(score.toString());
         }
-
         return scoreListAsString;  
     }
 }

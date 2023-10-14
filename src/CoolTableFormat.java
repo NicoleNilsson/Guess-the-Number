@@ -8,18 +8,51 @@ public class CoolTableFormat {
     private char verticalChar;
     private int longestEntry;
     private int extendPaddingBy;
-    private int padding;
     private int rightPadding;
     private int leftPadding;
     private ArrayList<String> stringEntries = new ArrayList<>();
 
-    //constructor
+    //constructor med 5 parametrar
     public CoolTableFormat(ArrayList<String> stringEntries, char horisontalChar, char verticalChar, char cornerChar, int extendPaddingBy){
-        this.horisontalChar = horisontalChar;
-        this.cornerChar = cornerChar;
-        this.verticalChar = verticalChar;
-        this.extendPaddingBy = extendPaddingBy;
         this.stringEntries = stringEntries;
+        this.horisontalChar = horisontalChar;
+        this.verticalChar = verticalChar;
+        this.cornerChar = cornerChar;
+        this.extendPaddingBy = extendPaddingBy;
+    }
+
+    //metod som formaterar och skriver en ArrayList
+    public void formatAndPrint(ArrayList<String> arrayList) {
+        for (String element : arrayList) {
+            //skapar padding utifrån längden på den längsta strängen i vår lista
+            createRightPadding(element);
+            createLeftPadding(element);
+
+            //formaterar och skriver ut skiljelinjer
+            //skriver ut den formatterade menyn
+            System.out.println(createDevitionLine());
+            System.out.println(centerString(element));
+        }
+        System.out.println(createDevitionLine());
+    }
+
+    //metod som skapar höger padding från längden på strängen
+    public int createRightPadding (String entry){
+        findLongestEntry();
+        rightPadding =  (longestEntry / 2) + extendPaddingBy - (entry.length()/2);
+        //om entry skulle innehålla jämnt antal karaktärer, lägg till 1 till vänster padding
+        // se*
+        if (entry.length() % 2 == 0){
+            rightPadding++;
+        }
+        return rightPadding;
+    }
+    
+    //metod som skapar vänster padding från längden på strängen
+    public int createLeftPadding (String entry){
+        findLongestEntry();
+        leftPadding =  (longestEntry / 2) + extendPaddingBy - (entry.length()/2);
+        return leftPadding;
     }
 
     //metod som tar fram längden på den längsta strängen i en lista
@@ -34,30 +67,19 @@ public class CoolTableFormat {
         return longestEntry;
     }
 
-    //metod som skapar höger padding från längsta strängen
-    public int createRightPadding (String entry){
-        findLongestEntry();
-        padding = (longestEntry + extendPaddingBy) / 2;
-        rightPadding = padding - (entry.length()/2);
-
-        if (longestEntry % 2 == 0 && extendPaddingBy % 2 != 0){
-            rightPadding++;
+    //metod som skapar en horisontell skiljelinje med hjälp av angedd karaktär och längd
+    public String createDevitionLine (){
+        //skapar devisionline av lika många tecken som longestentry + den tillagda paddingen
+        String devitionLine = "";
+        for (int i = 0; i < longestEntry + (extendPaddingBy * 2) ; i++){
+            devitionLine = devitionLine + horisontalChar;
         }
-        return rightPadding;
-    }
-    //metod som skapar vänster padding från längsta strängen
-    public int createLeftPadding (String entry){
-        findLongestEntry();
-        padding = (longestEntry + extendPaddingBy) / 2;
-        leftPadding = padding - (entry.length()/2);
-
-        //om noncenteredstring skulle innehålla jämnt antal karaktärer, lägg till 1 till vänster padding
-        // se*
-        if (entry.length() % 2 == 0){
-            leftPadding++;
+        //lägger till en extra karaktär om longestentry är jämnt, eller den tillagda paddingen är ojämn
+        //se *
+        if (longestEntry % 2 == 0){
+            devitionLine = devitionLine + horisontalChar; 
         }
-
-        return leftPadding;
+        return cornerChar +  devitionLine + cornerChar;
     }
 
     //metod som gör en sträng centrerad mellan två vertikala karaktärer med hjälp av angedd padding
@@ -66,22 +88,6 @@ public class CoolTableFormat {
         //"%5s" skulle lägga till 5 mellanslag innan s skrivs ut
         String centeredString = String.format("%" + (rightPadding) + "s" + "%s" + "%" + (leftPadding) + "s", "", nonCenteredString, "");
         return verticalChar + centeredString + verticalChar;
-    }
-
-    //metod som skapar en horisontell skiljelinje med hjälp av angedd karaktär och längd
-    public String createDevitionLine (){
-        //skapar devisionline av lika många tecken som longestentry + den tillagda paddingen
-        String devitionLine = "";
-        for (int i = 0; i < longestEntry + extendPaddingBy; i++){
-            devitionLine = devitionLine + horisontalChar;
-        }
-        //lägger till en extra karaktär om longestentry är jämnt, eller den tillagda paddingen är ojämn
-        //se *
-        if (longestEntry % 2 == 0 || extendPaddingBy % 2 != 0){
-            devitionLine = devitionLine + horisontalChar; 
-        }
-
-        return cornerChar +  devitionLine + cornerChar;
     }
 }
 
@@ -106,6 +112,5 @@ rightPadding = 7 - 2 = 5
 därför vill vi lägga till 1 på ena padding (egentligen 0.5 på varje padding men det går ju inte)
 
 samma problem uppstår när vi skapar devisionline
-och om extendPaddingBy är ett ojämnt tal
 
 */
