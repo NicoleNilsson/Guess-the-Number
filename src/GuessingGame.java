@@ -107,14 +107,14 @@ public class GuessingGame {
         CoolTableFormat lowScoreBoard = new CoolTableFormat (lowScore.getScoreListAsString(), '-', '|', '+', 1); 
 
         while (true) {                       
-            gameMenu.formatAndPrint(menuEntries);
+            gameMenu.formatAndPrint();
             choiceInMenu = gameScanner.nextLine();   
             if (choiceInMenu.equals("1")){
                 turn = 1;
                 playagain = true;
                 break;                
             } else if (choiceInMenu.equals("2")){ 
-                lowScoreBoard.formatAndPrint(lowScore.getScoreListAsString());
+                lowScoreBoard.formatAndPrint();
                 
                 //behövs för om man tidigare har angett fel alternativ
                 menuEntries.set(0, "Vad vill du göra?");

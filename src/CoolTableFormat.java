@@ -22,8 +22,8 @@ public class CoolTableFormat {
     }
 
     //metod som formaterar och skriver en ArrayList
-    public void formatAndPrint(ArrayList<String> arrayList) {
-        for (String element : arrayList) {
+    public void formatAndPrint() {
+        for (String element : stringEntries) {
             //skapar padding utifrån längden på den längsta strängen i vår lista
             createRightPadding(element);
             createLeftPadding(element);
