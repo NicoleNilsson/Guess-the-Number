@@ -25,7 +25,7 @@ public class GuessingGame {
     //metod som initierar och loopar spelet medan playagain är true
     public void startGame(){
         do { 
-            createRandomNumber(100, 1);
+            randomNumber = new Random().nextInt(100) + 1;
             //för test:
             //System.out.println(randomNumber);            
             System.out.println("Gissa ett tal mellan 1 och 100.");
@@ -38,12 +38,6 @@ public class GuessingGame {
         } while (playagain); 
     }
 
-    //metod som skapar ett slumpmässigt tal med angett bound och add
-    private int createRandomNumber(int bound, int add){
-        randomNumber = new Random().nextInt(bound) + add;
-        return randomNumber;
-    }
-    
     //metod som tar in och testar att userGuess är en int + felhantering
     private int tryTheNumber(){
         while (true){
