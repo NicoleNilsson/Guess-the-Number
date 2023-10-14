@@ -40,6 +40,9 @@ public class CoolTableFormat {
         padding = (longestEntry + extendPaddingBy) / 2;
         rightPadding = padding - (entry.length()/2);
 
+        if (longestEntry % 2 == 0 && extendPaddingBy % 2 != 0){
+            rightPadding++;
+        }
         return rightPadding;
     }
     //metod som skapar vänster padding från längsta strängen
@@ -53,6 +56,7 @@ public class CoolTableFormat {
         if (entry.length() % 2 == 0){
             leftPadding++;
         }
+
         return leftPadding;
     }
 
@@ -76,6 +80,7 @@ public class CoolTableFormat {
         if (longestEntry % 2 == 0 || extendPaddingBy % 2 != 0){
             devitionLine = devitionLine + horisontalChar; 
         }
+
         return cornerChar +  devitionLine + cornerChar;
     }
 }
@@ -87,7 +92,7 @@ public class CoolTableFormat {
 *
 Exempel:
 longestEntry = 14  
-padding =14 / 2 = 7
+padding = 14 / 2 = 7
 leftPadding = 7 - 7 = 0
 rightPadding = 7 - 7 = 0
 
@@ -98,9 +103,9 @@ rightPadding = 7 - 2 = 5
 
 5 + 5 + 5 = 15 (dvs 1 mer än longestEntry)
 
-därför vill vi lägga till 1 på longestEntry
-för om vi tar bort en riskerar strängen bli för kort
+därför vill vi lägga till 1 på ena padding (egentligen 0.5 på varje padding men det går ju inte)
 
 samma problem uppstår när vi skapar devisionline
+och om extendPaddingBy är ett ojämnt tal
 
 */
