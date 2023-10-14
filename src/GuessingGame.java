@@ -12,6 +12,7 @@ public class GuessingGame {
     private int userGuess;
     private String addToLowScore;
     private String choiceInMenu;
+    private boolean playagain;
     private Scanner gameScanner = new Scanner(System.in);
 
     //skapar objektet lowscore av scoreboard och ger lowscorelistan längden 5
@@ -23,6 +24,9 @@ public class GuessingGame {
 
     //metod som initierar spelet
     public void startGame(){
+        
+        
+        do { 
         createRandomNumber(100, 1);
         System.out.println(randomNumber);
         //bara så jag kan se det slumpade numret
@@ -34,6 +38,8 @@ public class GuessingGame {
             tryTheNumber();
             guessTheNumber();
         }
+            
+        } while (playagain); 
     }
 
     //metod som skapar ett slumpmässigt tal med angett bound och add
@@ -104,15 +110,15 @@ public class GuessingGame {
         //skapar en lista med våra menyalternativ
         ArrayList<String> menuEntries = new ArrayList<>(Arrays.asList("Vad vill du göra?",
                                                                         "1. Spela igen",
-                                                                        "2. Se Low Score-lista",
+                                                                        "2. Se Low Score-listan",
                                                                         "3. Avsluta spelet"));
         
         //skapar ett objekt av typen CoolTableFormat
-        CoolTableFormat gameMenu = new CoolTableFormat (menuEntries, '-', '|', '+');
+        CoolTableFormat gameMenu = new CoolTableFormat (menuEntries, '-', '|', '+', 2);
 
         while (true) {
             //formaterar separationslinjer
-            String menuDevitionLine = gameMenu.createDevitionLine(gameMenu.findLongestEntry(menuEntries) + 2);
+            String menuDevitionLine = gameMenu.createDevitionLine(menuEntries);
             
             //formaterar och skriver ut menyn
             for (String entry : menuEntries) {
@@ -129,16 +135,19 @@ public class GuessingGame {
               
             if (choiceInMenu.equals("1")){
                 turn = 1;
-                //kan bli ett problem om spelet startas för många gånger
-                startGame();
+                playagain = true;
                 break;
                 
             } else if (choiceInMenu.equals("2")){ 
                 //skriver ut lowscore och kör om menyn
                 printScoreBoard();
 
+                //behövs om man tidigare har angett fel alternativ
+                menuEntries.set(0, "Vad vill du göra?");
+
             } else if (choiceInMenu.equals("3")){
                 System.out.println("Tack för den här gången!");
+                playagain = false;
                 break;
 
             } else {
@@ -149,10 +158,10 @@ public class GuessingGame {
     }
 
     private void printScoreBoard (){
-        CoolTableFormat lowScoreBoard = new CoolTableFormat (lowScore.getScoreListAsString(), '-', '|', '+');
+        CoolTableFormat lowScoreBoard = new CoolTableFormat (lowScore.getScoreListAsString(), '-', '|', '+', 2);
         
         lowScore.scoreListAsString();
-        String lowScoreDevisionLine = lowScoreBoard.createDevitionLine(lowScoreBoard.findLongestEntry(lowScore.getScoreListAsString()) + 2);
+        String lowScoreDevisionLine = lowScoreBoard.createDevitionLine(lowScore.getScoreListAsString());
 
         for (String score : lowScore.getScoreListAsString()) {
             int lowScoreRightPadding = lowScoreBoard.createRightPadding(score);
