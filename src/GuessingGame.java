@@ -78,19 +78,17 @@ public class GuessingGame {
         if (lowScore.getScoreList().size() < lowScore.getMaxSize() || turn < lowScore.getScoreList().get(lowScore.getListIndex())){
             System.out.println("Vill du lägga till ditt resultat på lowscore-listan (Ja/Nej)? ");
             addToLowScore = gameScanner.nextLine();
+
             while ((!addToLowScore.equalsIgnoreCase("ja")) && (!addToLowScore.equalsIgnoreCase("nej"))){
                 System.out.println("Vänligen ange Ja eller Nej: ");
                 addToLowScore = gameScanner.nextLine();
             }    
+            
             if (addToLowScore.equalsIgnoreCase("ja")){
                 lowScore.scoreList(turn);
-                menu();
-            } else if (addToLowScore.equalsIgnoreCase("nej")){
-                menu();
-            }          
-        } else {
-            menu();
+            }
         }
+        menu();
     }
 
     //metod för att skapa meny och dess funktioner
