@@ -3,5 +3,4 @@ public class Main {
         GuessingGame game = new GuessingGame();
         game.startGame();   
     }
-    
 }
