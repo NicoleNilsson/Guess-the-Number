@@ -107,18 +107,19 @@ public class GuessingGame {
         CoolTableFormat gameMenu = new CoolTableFormat (menuEntries, '-', '|', '+', 2);
 
         while (true) {
-            //formaterar separationslinjer
-            String menuDevitionLine = gameMenu.createDevitionLine();           
+            //gameMenu.findLongestEntry();
+           
             for (String entry : menuEntries) {
                 //skapar padding utifrån längden på längsta strängen i vår lista
                 gameMenu.createRightPadding(entry);
                 gameMenu.createLeftPadding(entry);
 
+                //formaterar och skriver ut skiljelinjer
                 //skriver ut den formatterade menyn
-                System.out.println(menuDevitionLine);
+                System.out.println(gameMenu.createDevitionLine());
                 System.out.println(gameMenu.centerString(entry));
             }
-            System.out.println(menuDevitionLine);
+            System.out.println(gameMenu.createDevitionLine());
             
             //tar in val i menyn och utvärderar input
             choiceInMenu = gameScanner.nextLine();   
@@ -129,18 +130,17 @@ public class GuessingGame {
             } else if (choiceInMenu.equals("2")){ 
                 //skriver ut lowscore och kör om menyn
                 printScoreBoard();
-
                 //behövs om man tidigare har angett fel alternativ
                 menuEntries.set(0, "Vad vill du göra?");
-                
+
             } else if (choiceInMenu.equals("3")){
                 System.out.println("Tack för den här gången!");
                 //avslutar spelet
                 playagain = false;
                 break;
             } else {
-                menuEntries.set(0, "Vänligen ange ett av följande alternativ!");
                 //kör om menyn med felmeddelande
+                menuEntries.set(0, "Vänligen ange ett av följande alternativ!");                
             }
         }
     }
@@ -153,17 +153,19 @@ public class GuessingGame {
         //med paramterar ArrayList<String>, horisontalChar, verticalChar, cornerChar, extendPaddingBy(antal extra karaktärer i padding)
         CoolTableFormat lowScoreBoard = new CoolTableFormat (lowScore.getScoreListAsString(), '-', '|', '+', 2);  
         
-        String lowScoreDevisionLine = lowScoreBoard.createDevitionLine();
+        //anropar metod som tar fram längden på den längsta strängen i en lista
+        //lowScoreBoard.findLongestEntry();
         for (String score : lowScore.getScoreListAsString()) {
             //skapar padding utifrån längden på den längsta strängen i vår lista
             lowScoreBoard.createRightPadding(score);
             lowScoreBoard.createLeftPadding(score);
 
+            //formaterar och skriver ut skiljelinjer
             //skriver ut den formatterade listan
-            System.out.println(lowScoreDevisionLine);
+            System.out.println(lowScoreBoard.createDevitionLine());
             System.out.println(lowScoreBoard.centerString(score));
         }
-        System.out.println(lowScoreDevisionLine);
+        System.out.println(lowScoreBoard.createDevitionLine());
     }
 }
 

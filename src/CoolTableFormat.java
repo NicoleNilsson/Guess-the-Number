@@ -8,6 +8,7 @@ public class CoolTableFormat {
     private char verticalChar;
     private int longestEntry;
     private int extendPaddingBy;
+    private int padding;
     private int rightPadding;
     private int leftPadding;
     private ArrayList<String> stringEntries = new ArrayList<>();
@@ -21,21 +22,35 @@ public class CoolTableFormat {
         this.stringEntries = stringEntries;
     }
 
+    //metod som tar fram längden på den längsta strängen i en lista
+    public int findLongestEntry (){
+        //nollställer longestEntry
+        longestEntry = 0;
+        for (String entry : stringEntries) {
+            if (longestEntry < entry.length()){
+                longestEntry = entry.length();
+            }
+        }
+        return longestEntry;
+    }
+
     //metod som skapar höger padding från längsta strängen
-    public int createRightPadding (String nonCenteredString){
-        int padding = (longestEntry + extendPaddingBy) / 2;
-        rightPadding = padding - (nonCenteredString.length()/2);
+    public int createRightPadding (String entry){
+        findLongestEntry();
+        padding = (longestEntry + extendPaddingBy) / 2;
+        rightPadding = padding - (entry.length()/2);
 
         return rightPadding;
     }
     //metod som skapar vänster padding från längsta strängen
-    public int createLeftPadding (String nonCenteredString){
-        int padding = (longestEntry + extendPaddingBy) / 2;
-        leftPadding = padding - (nonCenteredString.length()/2);
+    public int createLeftPadding (String entry){
+        findLongestEntry();
+        padding = (longestEntry + extendPaddingBy) / 2;
+        leftPadding = padding - (entry.length()/2);
 
         //om noncenteredstring skulle innehålla jämnt antal karaktärer, lägg till 1 till vänster padding
         // se*
-        if (nonCenteredString.length() % 2 == 0){
+        if (entry.length() % 2 == 0){
             leftPadding++;
         }
         return leftPadding;
@@ -51,13 +66,6 @@ public class CoolTableFormat {
 
     //metod som skapar en horisontell skiljelinje med hjälp av angedd karaktär och längd
     public String createDevitionLine (){
-        //tar fram längsta strängen i vår lista
-        for (String entry : stringEntries) {
-            if (longestEntry < entry.length()){
-                longestEntry = entry.length();
-            }
-        }
-
         //skapar devisionline av lika många tecken som longestentry + den tillagda paddingen
         String devitionLine = "";
         for (int i = 0; i < longestEntry + extendPaddingBy; i++){
