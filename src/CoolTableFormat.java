@@ -8,6 +8,9 @@ public class CoolTableFormat {
     private char verticalChar;
     private int longestEntry;
     private int extendPaddingBy;
+    private int rightPadding;
+    private int leftPadding;
+    private ArrayList<String> stringEntries = new ArrayList<>();
 
     //constructor
     public CoolTableFormat(ArrayList<String> stringEntries, char horisontalChar, char verticalChar, char cornerChar, int extendPaddingBy){
@@ -15,19 +18,20 @@ public class CoolTableFormat {
         this.cornerChar = cornerChar;
         this.verticalChar = verticalChar;
         this.extendPaddingBy = extendPaddingBy;
+        this.stringEntries = stringEntries;
     }
 
-    //skapar höger padding från längsta strängen
+    //metod som skapar höger padding från längsta strängen
     public int createRightPadding (String nonCenteredString){
         int padding = (longestEntry + extendPaddingBy) / 2;
-        int rightPadding = padding - (nonCenteredString.length()/2);
+        rightPadding = padding - (nonCenteredString.length()/2);
 
         return rightPadding;
     }
-    //metod som skapar vänster padding från längsta
+    //metod som skapar vänster padding från längsta strängen
     public int createLeftPadding (String nonCenteredString){
         int padding = (longestEntry + extendPaddingBy) / 2;
-        int leftPadding = padding - (nonCenteredString.length()/2);
+        leftPadding = padding - (nonCenteredString.length()/2);
 
         //om noncenteredstring skulle innehålla jämnt antal karaktärer, lägg till 1 till vänster padding
         // se*
@@ -38,7 +42,7 @@ public class CoolTableFormat {
     }
 
     //metod som gör en sträng centrerad mellan två vertikala karaktärer med hjälp av angedd padding
-    public String centerString (String nonCenteredString, int rightPadding, int leftPadding){
+    public String centerString (String nonCenteredString){
         //i sammanhanget: "s" är "", och "%s" är noncenteredstring
         //"%5s" skulle lägga till 5 mellanslag innan s skrivs ut
         String centeredString = String.format("%" + (rightPadding) + "s" + "%s" + "%" + (leftPadding) + "s", "", nonCenteredString, "");
@@ -46,7 +50,7 @@ public class CoolTableFormat {
     }
 
     //metod som skapar en horisontell skiljelinje med hjälp av angedd karaktär och längd
-    public String createDevitionLine (ArrayList<String> stringEntries){
+    public String createDevitionLine (){
         //tar fram längsta strängen i vår lista
         for (String entry : stringEntries) {
             if (longestEntry < entry.length()){
