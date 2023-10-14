@@ -25,7 +25,7 @@ public class GuessingGame {
     //metod som initierar och loopar spelet medan playagain är true
     public void startGame(){
         do { 
-            createRandomNumber(100, 1);
+            createRandomNumber(100, 100);
             //för test:
             //System.out.println(randomNumber);            
             System.out.println("Gissa ett tal mellan 1 och 100.");
