@@ -74,7 +74,8 @@ public class CoolTableFormat {
         for (int i = 0; i < longestEntry + (extendPaddingBy * 2) ; i++){
             devitionLine = devitionLine + horisontalChar;
         }
-        //lägger till en extra karaktär om longestentry är jämnt, eller den tillagda paddingen är ojämn
+
+        //lägger till en extra karaktär om longestentry är jämnt
         //se *
         if (longestEntry % 2 == 0){
             devitionLine = devitionLine + horisontalChar; 

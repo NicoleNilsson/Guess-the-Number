@@ -20,6 +20,7 @@ public class ScoreBoard {
             return scoreList;
         }
         public ArrayList<String> getScoreListAsString(){
+            scoreListAsString();
             return scoreListAsString;
         }
         public int getMaxSize (){

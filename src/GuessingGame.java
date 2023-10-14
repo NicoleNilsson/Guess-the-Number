@@ -101,30 +101,24 @@ public class GuessingGame {
                                                                         "1. Spela igen",
                                                                         "2. Se Low Score-listan",
                                                                         "3. Avsluta spelet"));
-        
-        
-        //anropar metoden som konverterar vår scorelista från int till String
-        lowScore.scoreListAsString();
         //skapar våra objekt gameMenu och lowScoreBoard av typen CoolTableFormat
         //med paramterar ArrayList<String>, horisontalChar, verticalChar, cornerChar, extendPaddingBy
         CoolTableFormat gameMenu = new CoolTableFormat (menuEntries, '-', '|', '+', 1);
         CoolTableFormat lowScoreBoard = new CoolTableFormat (lowScore.getScoreListAsString(), '-', '|', '+', 1); 
 
         while (true) {                       
-            //kallar på metod som formaterar och skriver ut vår meny
             gameMenu.formatAndPrint(menuEntries);
-            //tar in val i menyn och utvärderar input
             choiceInMenu = gameScanner.nextLine();   
             if (choiceInMenu.equals("1")){
                 turn = 1;
                 playagain = true;
                 break;                
             } else if (choiceInMenu.equals("2")){ 
-                //formaterar och skriver ut lowscore
                 lowScoreBoard.formatAndPrint(lowScore.getScoreListAsString());
-                //behövs om man tidigare har angett fel alternativ
+                
+                //behövs för om man tidigare har angett fel alternativ
                 menuEntries.set(0, "Vad vill du göra?");
-
+                
             } else if (choiceInMenu.equals("3")){
                 System.out.println("Tack för den här gången!");
                 //avslutar spelet
