@@ -9,9 +9,11 @@ public class ScoreBoard {
     private ArrayList<String> scoreListAsString = new ArrayList<>();
     private int maxSize;
     private int listIndex;
+    private String scoreBoardLabel;
     
     //constructor för en scoreboard med önskad längd som parameter
-    public ScoreBoard(int maxSize){
+    public ScoreBoard(String scoreBoardLable, int maxSize){
+        this.scoreBoardLabel = scoreBoardLable;
         this.maxSize = maxSize;
     }
 
@@ -47,7 +49,7 @@ public class ScoreBoard {
         //clear för annars sparas listan varje gång den printats ut i guessinggame
         scoreListAsString.clear();
 
-        scoreListAsString.add("Low Scores:");
+        scoreListAsString.add(scoreBoardLabel);
         for (Integer score : scoreList){
             scoreListAsString.add(score.toString());
         }

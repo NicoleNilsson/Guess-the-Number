@@ -16,7 +16,7 @@ public class GuessingGame {
     private Scanner gameScanner = new Scanner(System.in);
 
     //skapar objektet lowScore av typen ScoreBoard och gör listLength till 5
-    ScoreBoard lowScore = new ScoreBoard(5);
+    ScoreBoard lowScore = new ScoreBoard("Low Scores", 5);
 
     //constructor
     public GuessingGame(){
