@@ -25,9 +25,9 @@ public class GuessingGame {
     //metod som initierar och loopar spelet medan playagain är true
     public void startGame(){
         do { 
-            createRandomNumber(100, 1);
+            createRandomNumber(1, 100);
+            //för test:
             System.out.println(randomNumber);
-            //bara så jag kan se det slumpade numret
             
             System.out.println("Gissa ett tal mellan 1 och 100.");
 
@@ -40,8 +40,8 @@ public class GuessingGame {
     }
 
     //metod som skapar ett slumpmässigt tal med angett bound och add
-    private int createRandomNumber(int bound, int add){
-        randomNumber = new Random().nextInt(bound) + add;
+    private int createRandomNumber(int from, int to){
+        randomNumber = new Random().nextInt(to) + from;
         return randomNumber;
     }
     
@@ -106,27 +106,27 @@ public class GuessingGame {
         CoolTableFormat gameMenu = new CoolTableFormat (menuEntries, '-', '|', '+', 1);
         CoolTableFormat lowScoreBoard = new CoolTableFormat (lowScore.getScoreListAsString(), '-', '|', '+', 1); 
 
-        while (true) {                       
+        loop: while (true) {                       
             gameMenu.formatAndPrint();
             choiceInMenu = gameScanner.nextLine();   
-            if (choiceInMenu.equals("1")){
-                turn = 1;
-                playagain = true;
-                break;                
-            } else if (choiceInMenu.equals("2")){ 
-                lowScoreBoard.formatAndPrint();
-                
-                //behövs för om man tidigare har angett fel alternativ
-                menuEntries.set(0, "Vad vill du göra?");
-                
-            } else if (choiceInMenu.equals("3")){
-                System.out.println("Tack för den här gången!");
-                //avslutar spelet
-                playagain = false;
-                break;
-            } else {
-                //kör om menyn med felmeddelande
-                menuEntries.set(0, "Vänligen ange ett av följande alternativ!");                
+            switch (choiceInMenu){
+                case "1":
+                    turn = 1;
+                    playagain = true;
+                    break loop; 
+                case "2":
+                    lowScoreBoard.formatAndPrint();
+                    //behövs för om man tidigare har angett fel alternativ
+                    menuEntries.set(0, "Vad vill du göra?");
+                    break;
+                case "3":
+                    System.out.println("Tack för den här gången!");    
+                    //avslutar spelet
+                    playagain = false;
+                    break loop;
+                default:
+                    //kör om menyn med felmeddelande
+                    menuEntries.set(0, "Vänligen ange ett av följande alternativ!");
             }
         }
     }
