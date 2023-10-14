@@ -27,8 +27,7 @@ public class GuessingGame {
         do { 
             createRandomNumber(1, 100);
             //för test:
-            //System.out.println(randomNumber);
-            
+            //System.out.println(randomNumber);            
             System.out.println("Gissa ett tal mellan 1 och 100.");
 
             while (userGuess != randomNumber){
