@@ -21,7 +21,7 @@ public class CoolTableFormat {
         this.extendPaddingBy = extendPaddingBy;
     }
 
-    //metod som formaterar och skriver en ArrayList
+    //metod som formaterar och skriver ut en ArrayList
     public void formatAndPrint() {
         for (String element : stringEntries) {
             //skapar padding utifrån längden på den längsta strängen i vår lista
@@ -40,7 +40,7 @@ public class CoolTableFormat {
     public int createRightPadding (String entry){
         findLongestEntry();
         rightPadding =  (longestEntry / 2) + extendPaddingBy - (entry.length()/2);
-        //om entry skulle innehålla jämnt antal karaktärer, lägg till 1 till vänster padding
+        //om entry skulle innehålla jämnt antal karaktärer, lägg till 1 till höger padding
         // se*
         if (entry.length() % 2 == 0){
             rightPadding++;
@@ -69,13 +69,13 @@ public class CoolTableFormat {
 
     //metod som skapar en horisontell skiljelinje med hjälp av angedd karaktär och längd
     public String createDevitionLine (){
-        //skapar devisionline av lika många tecken som longestentry + den tillagda paddingen
+        //skapar devisionLine av lika många tecken som longestEntry + den tillagda paddingen
         String devitionLine = "";
         for (int i = 0; i < longestEntry + (extendPaddingBy * 2) ; i++){
             devitionLine = devitionLine + horisontalChar;
         }
 
-        //lägger till en extra karaktär om longestentry är jämnt
+        //lägger till en extra karaktär om longestEntry är jämnt
         //se *
         if (longestEntry % 2 == 0){
             devitionLine = devitionLine + horisontalChar; 
@@ -111,6 +111,7 @@ rightPadding = 7 - 2 = 5
 5 + 5 + 5 = 15 (dvs 1 mer än longestEntry)
 
 därför vill vi lägga till 1 på ena padding (egentligen 0.5 på varje padding men det går ju inte)
+man vill inte ta bort en från den ojämna strängen för då riskerar paddingen bli för kort för longestEntry
 
 samma problem uppstår när vi skapar devisionline
 

@@ -44,9 +44,9 @@ public class ScoreBoard {
         return scoreList;
     }
 
-    //metod som returnerar scoreList som en sträng för att kunna använda den i cooltableformat
+    //metod som returnerar scoreList som en sträng för att kunna använda den i CoolTableFormat
     public ArrayList<String> scoreListAsString (){
-        //clear för annars sparas listan varje gång den printats ut i guessinggame
+        //clear för annars sparas listan varje gång den printats ut
         scoreListAsString.clear();
 
         scoreListAsString.add(scoreBoardLabel);
